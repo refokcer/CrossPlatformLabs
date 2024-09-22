@@ -1,7 +1,10 @@
 Error: Invalid value of N. It should be in the range 1 ≤ N ≤ 109.
 Error: Invalid value of N. It should be in the range 1 ≤ N ≤ 109.
-3
+1
+1
 1
 2
 6
-Error: Line 5 in INPUT.txt is not a valid integer.
+20
+29
+Error: Invalid value of N. It should be in the range 1 ≤ N ≤ 109.

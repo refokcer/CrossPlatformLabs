@@ -4,7 +4,7 @@
     {
         public static List<long> ReadInputNumbers(string InputFilePath, string OutputFilePath)
         {
-            List<long> numbers = new List<long>();
+            List<long> numbers = [];
 
             try
             {
@@ -25,7 +25,8 @@
                         {
                             // Write error message and return null
                             Utils.WriteError(OutputFilePath, $"Error: Line {lineNumber} in INPUT.txt is not a valid integer.");
-                            return null;
+                            lineNumber--;
+                            //return null;
                         }
                         lineNumber++;
                     }
