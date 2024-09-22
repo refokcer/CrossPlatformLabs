@@ -1,0 +1,29 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Solution Condition="'$(Solution)' == ''"></Solution>
+  </PropertyGroup>
+
+  <!-- Указываем проект .csproj для сборки -->
+  <ItemGroup Condition="'$(Solution)' != ''">
+    <ProjectFile Include="$(Solution)\**\*.csproj" />
+  </ItemGroup>
+
+  <!-- Цель для сборки проекта -->
+  <Target Name="Build">
+    <MSBuild Projects="@(ProjectFile)" Targets="Restore;Build" />
+  </Target>
+
+  <!-- Цель для тестирования проекта -->
+  <Target Name="Test">
+    <Exec Command="dotnet test --logger &quot;console;verbosity=detailed&quot;" WorkingDirectory="$(Solution)" />
+  </Target>
+
+  <!-- Цель для запуска проекта -->
+  <Target Name="Run">
+    <PropertyGroup>
+      <MainProject>$(Solution)\CrossPlatformLabs\CrossPlatformLabs.csproj</MainProject>
+    </PropertyGroup>
+    <Exec Command="dotnet run --project &quot;$(MainProject)&quot;" WorkingDirectory="$(Solution)" />
+  </Target>
+</Project>
