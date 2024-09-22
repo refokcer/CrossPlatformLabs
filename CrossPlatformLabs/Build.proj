@@ -18,7 +18,7 @@
   </Target>
 
   <Target Name="Test">
-    <Message Text="Testing project: $(ProjectPath)" />
-    <Exec Command="dotnet test &quot;$(ProjectPath)&quot;" />
+    <Message Text="Running tests for project: Lab1.Tests" />
+    <Exec Command="dotnet test &quot;$(SolutionDir)Lab1.Tests\Lab1.Tests.csproj&quot;" WorkingDirectory="$(SolutionDir)" />
   </Target>
 </Project>
