@@ -28,7 +28,9 @@ namespace CrossPlatformLabs
             // List to store results for each input number
             List<string> results = new List<string>();
 
+
             // Process each input number
+            Console.WriteLine("Go through all input data one by one");
             foreach (long N in inputNumbers)
             {
                 // Validate the input number
@@ -46,6 +48,7 @@ namespace CrossPlatformLabs
             }
 
             // Write all results to the output file
+            Console.WriteLine("Write everything to a file for output ");
             fileService.WriteOutputResults(results);
         }
     }
