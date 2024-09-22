@@ -7,9 +7,10 @@ public static class Utils
         try
         {
             // Open the file in append mode by passing true as the second argument
-            using (StreamWriter writer = new StreamWriter(OutputFilePath, true))
+            using (StreamWriter writer = new StreamWriter(OutputFilePath))
             {
                 writer.WriteLine(errorMessage);
+                Console.WriteLine(errorMessage);
             }
         }
         catch (Exception ex)

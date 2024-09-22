@@ -1,8 +1,18 @@
 ﻿namespace CrossPlatformLabs
 {
-    public static class FileService
+    public class FileService
     {
-        public static List<long> ReadInputNumbers(string InputFilePath, string OutputFilePath)
+        // Constants for file paths
+        private readonly string InputFilePath;
+        private readonly string OutputFilePath;
+
+        public FileService(string InputFilePath, string OutputFilePath) 
+        { 
+            this.InputFilePath = InputFilePath;
+            this.OutputFilePath = OutputFilePath;
+        }
+
+        public List<long> ReadInputNumbers()
         {
             List<long> numbers = [];
 
@@ -25,8 +35,7 @@
                         {
                             // Write error message and return null
                             Utils.WriteError(OutputFilePath, $"Error: Line {lineNumber} in INPUT.txt is not a valid integer.");
-                            lineNumber--;
-                            //return null;
+                            return null;
                         }
                         lineNumber++;
                     }
@@ -42,7 +51,7 @@
             return numbers;
         }
 
-        public static void WriteOutputResults(string OutputFilePath, IEnumerable<string> results)
+        public void WriteOutputResults(IEnumerable<string> results)
         {
             try
             {
