@@ -1,4 +1,6 @@
-﻿namespace CrossPlatformLabs
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace CrossPlatformLabs
 {
     public class FileService
     {
@@ -24,6 +26,7 @@
                     int lineNumber = 1;
 
                     // Read each line until the end of the file
+                    
                     while ((line = reader.ReadLine()) != null)
                     {
                         // Try to parse the line as a long integer
@@ -37,8 +40,10 @@
                             Utils.WriteError(OutputFilePath, $"Error: Line {lineNumber} in INPUT.txt is not a valid integer.");
                             return null;
                         }
+                        Console.WriteLine($"Line number {lineNumber} is read");
                         lineNumber++;
                     }
+                    Console.WriteLine("Finished reading all input data line by line");
                 }
             }
             catch (Exception ex)
@@ -58,10 +63,12 @@
                 using (StreamWriter writer = new StreamWriter(OutputFilePath))
                 {
                     // Write each result on a new line
+                    Console.WriteLine("The recording of the answer file has started"); 
                     foreach (string result in results)
                     {
                         writer.WriteLine(result);
                     }
+                    Console.WriteLine("Finished writing the answer file");
                 }
             }
             catch (Exception ex)
