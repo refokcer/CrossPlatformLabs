@@ -10,5 +10,5 @@
   <ItemGroup>
     <Folder Include="Files\" />
   </ItemGroup>
-
+	
 </Project>

@@ -1,5 +1,5 @@
-Error: Invalid value of 1 number. It should be in the range 1 ≤ N ≤ 109.
-Error: Invalid value of 2 number. It should be in the range 1 ≤ N ≤ 109.
+Invalid value of 1 number. It should be in the range 1 ≤ N ≤ 109.
+Invalid value of 2 number. It should be in the range 1 ≤ N ≤ 109.
 1
 1
 1
@@ -7,4 +7,4 @@ Error: Invalid value of 2 number. It should be in the range 1 ≤ N ≤ 109.
 6
 20
 29
-Error: Invalid value of 10 number. It should be in the range 1 ≤ N ≤ 109.
+Invalid value of 10 number. It should be in the range 1 ≤ N ≤ 109.

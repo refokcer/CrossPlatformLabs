@@ -1,14 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace Lab1
 {
     internal class Program
     {
-        // Constants for file paths
-        private const string InputFilePath = "..//..//..//Files/INPUT.txt";
-        private const string OutputFilePath = "..//..//..//Files/OUTPUT.txt";
+        // Получаем путь к каталогу проекта
+        private static readonly string ProjectDirectory = GetProjectDirectory();
+
+        // Строим пути к файлам относительно каталога проекта
+        private static readonly string InputFilePath = Path.Combine(ProjectDirectory, "Files", "INPUT.txt");
+        private static readonly string OutputFilePath = Path.Combine(ProjectDirectory, "Files", "OUTPUT.txt");
+
+        private static string GetProjectDirectory()
+        {
+            // Получаем путь к исполняемому файлу
+            string exePath = Assembly.GetExecutingAssembly().Location;
+            string exeDirectory = Path.GetDirectoryName(exePath);
+
+            // Поднимаемся на три уровня вверх, чтобы попасть в каталог проекта
+            string projectDirectory = Path.GetFullPath(Path.Combine(exeDirectory, @"..\..\.."));
+            return projectDirectory;
+        }
 
         static void Main(string[] args)
         {
@@ -40,8 +55,8 @@ namespace Lab1
                 Console.WriteLine($"Check the range of the {i + 1} number");
                 if (N < 1 || N > 109)
                 {
-                    Console.WriteLine($"Error: Invalid value of {i + 1} number. It should be in the range frpm 1 to 109");
-                    results.Add($"Error: Invalid value of {i + 1} number. It should be in the range 1 ≤ N ≤ 109.");
+                    Console.WriteLine($"Invalid value of {i + 1} number. It should be in the range frpm 1 to 109");
+                    results.Add($"Invalid value of {i + 1} number. It should be in the range 1 ≤ N ≤ 109.");
                     continue;
                 }
 
