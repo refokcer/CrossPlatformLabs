@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace CrossPlatformLabs
+namespace Lab1
 {
     internal class Program
     {

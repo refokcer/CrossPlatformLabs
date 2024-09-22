@@ -1,7 +1,8 @@
 <Project>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Solution Condition="'$(Solution)' == ''"></Solution>
+    <!-- Параметр для указания пути к решению -->
+    <Solution Condition="'$(Solution)' == ''">Lab1</Solution>
   </PropertyGroup>
 
   <!-- Указываем проект .csproj для сборки -->
@@ -22,6 +23,7 @@
   <!-- Цель для запуска проекта -->
   <Target Name="Run">
     <PropertyGroup>
+      <!-- Путь к главному проекту, который будет запущен -->
       <MainProject>$(Solution)\CrossPlatformLabs\CrossPlatformLabs.csproj</MainProject>
     </PropertyGroup>
     <Exec Command="dotnet run --project &quot;$(MainProject)&quot;" WorkingDirectory="$(Solution)" />

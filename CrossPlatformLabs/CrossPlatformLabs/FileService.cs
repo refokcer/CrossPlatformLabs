@@ -1,6 +1,6 @@
 ﻿using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace CrossPlatformLabs
+namespace Lab1
 {
     public class FileService
     {

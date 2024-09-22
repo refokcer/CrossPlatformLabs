@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrossPlatformLabs
+namespace Lab1
 {
     public static class Math
     {
