@@ -1,8 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <!-- —войство Solution передаетс€ из командной строки -->
     <SolutionName>$(Solution)</SolutionName>
-    <!-- SolutionDir автоматически устанавливаетс€ в каталог этого файла -->
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
     <ProjectPath>$(SolutionDir)$(SolutionName)\$(SolutionName).csproj</ProjectPath>
   </PropertyGroup>

@@ -7,20 +7,20 @@ namespace Lab1
 {
     internal class Program
     {
-        // Получаем путь к каталогу проекта
+        // Getting the path to the project directory
         private static readonly string ProjectDirectory = GetProjectDirectory();
 
-        // Строим пути к файлам относительно каталога проекта
+        // Build paths to files relative to the project directory
         private static readonly string InputFilePath = Path.Combine(ProjectDirectory, "Files", "INPUT.txt");
         private static readonly string OutputFilePath = Path.Combine(ProjectDirectory, "Files", "OUTPUT.txt");
 
         private static string GetProjectDirectory()
         {
-            // Получаем путь к исполняемому файлу
+            //  Get the path to the executable file
             string exePath = Assembly.GetExecutingAssembly().Location;
             string exeDirectory = Path.GetDirectoryName(exePath);
 
-            // Поднимаемся на три уровня вверх, чтобы попасть в каталог проекта
+            // Climb three levels up to get to the project catalog
             string projectDirectory = Path.GetFullPath(Path.Combine(exeDirectory, @"..\..\.."));
             return projectDirectory;
         }

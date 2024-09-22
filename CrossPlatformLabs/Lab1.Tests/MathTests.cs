@@ -33,10 +33,10 @@ namespace Lab1.Tests
         }
 
         [Theory]
-        [InlineData(1, 1)]  // Только одно число (1), которое не делится на 2, 3 или 5
-        [InlineData(10, 2)] // Числа: 1, 7
-        [InlineData(15, 4)] // Числа: 1, 7, 11, 13
-        [InlineData(20, 6)] // Числа: 1, 7, 11, 13, 16, 17, 19
+        [InlineData(1, 1)]  
+        [InlineData(10, 2)] 
+        [InlineData(15, 4)] 
+        [InlineData(20, 6)]
         [InlineData(100, 26)]
         public void CountNumbersNotDivisibleBy2_3_5_ReturnsCorrectCount(long N, long expected)
         {
