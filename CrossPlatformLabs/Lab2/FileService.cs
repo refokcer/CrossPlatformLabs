@@ -1,0 +1,64 @@
+﻿namespace Lab2
+{
+    public class FileService
+    {
+        private readonly string _inputFilePath;
+        private readonly string _outputFilePath;
+
+        public FileService(string inputFilePath, string outputFilePath)
+        {
+            _inputFilePath = inputFilePath;
+            _outputFilePath = outputFilePath;
+        }
+
+        // Reading input file and extracting word sets
+        public List<string[]> ReadInputFile()
+        {
+            var wordSets = new List<string[]>();
+
+            using (StreamReader reader = new StreamReader(_inputFilePath))
+            {
+                // Loop until we reach the end of the file
+                while (!reader.EndOfStream)
+                {
+                    Console.WriteLine("Reading number of words in the current set...");
+
+                    if (!int.TryParse(reader.ReadLine()?.Trim(), out int M) || M < 1 || M > 255)
+                    {
+                        throw new Exception("Invalid value for M in INPUT.txt");
+                    }
+
+                    string[] words = new string[M];
+                    // Reading words for the current set
+                    for (int i = 0; i < M; i++)
+                    {
+                        Console.WriteLine($"Reading word {i + 1} from the input...");
+                        string word = reader.ReadLine()?.Trim();
+                        if (string.IsNullOrWhiteSpace(word) || word.Length > 255 || !word.All(char.IsLower) || words.Contains(word))
+                        {
+                            throw new Exception($"Invalid word at line {i + 2} in INPUT.txt");
+                        }
+                        words[i] = word;
+                    }
+
+                    wordSets.Add(words);
+                }
+            }
+
+            return wordSets;
+        }
+
+        // Writing results to the output file
+        public void WriteOutputFile(List<int> results)
+        {
+            using (StreamWriter writer = new StreamWriter(_outputFilePath))
+            {
+                Console.WriteLine("Writing results to the output file...");
+                foreach (var result in results)
+                {
+                    writer.WriteLine(result);
+                }
+            }
+        }
+    }
+}
