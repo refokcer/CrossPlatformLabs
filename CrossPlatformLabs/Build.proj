@@ -3,6 +3,7 @@
     <SolutionName>$(Solution)</SolutionName>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
     <ProjectPath>$(SolutionDir)$(SolutionName)\$(SolutionName).csproj</ProjectPath>
+    <TestProjectPath>$(SolutionDir)$(SolutionName).Tests\$(SolutionName).Tests.csproj</TestProjectPath>
   </PropertyGroup>
 
   <Target Name="Build">
@@ -16,7 +17,9 @@
   </Target>
 
   <Target Name="Test">
-    <Message Text="Running tests for project: Lab1.Tests" />
-    <Exec Command="dotnet test &quot;$(SolutionDir)Lab1.Tests\Lab1.Tests.csproj&quot;" WorkingDirectory="$(SolutionDir)" />
+    <!-- Отображаем сообщение о запуске тестов для текущего проекта -->
+    <Message Text="Running tests for project: $(SolutionName).Tests" />
+    <!-- Запуск тестов для выбранного тестового проекта -->
+    <Exec Command="dotnet test &quot;$(TestProjectPath)&quot;" WorkingDirectory="$(SolutionDir)" />
   </Target>
 </Project>
