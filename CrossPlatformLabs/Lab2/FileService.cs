@@ -25,7 +25,9 @@
 
                     if (!int.TryParse(reader.ReadLine()?.Trim(), out int M) || M < 1 || M > 255)
                     {
-                        throw new Exception("Invalid value for M in INPUT.txt");
+                        var error = "Invalid value for M in INPUT.txt";
+                        Utils.WriteError(_outputFilePath, error);
+                        throw new Exception(error);
                     }
 
                     string[] words = new string[M];
@@ -33,10 +35,12 @@
                     for (int i = 0; i < M; i++)
                     {
                         Console.WriteLine($"Reading word {i + 1} from the input...");
-                        string word = reader.ReadLine()?.Trim();
+                        string? word = reader.ReadLine()?.Trim();
                         if (string.IsNullOrWhiteSpace(word) || word.Length > 255 || !word.All(char.IsLower) || words.Contains(word))
                         {
-                            throw new Exception($"Invalid word at line {i + 2} in INPUT.txt");
+                            var error = $"Invalid word at line {i + 2} in INPUT.txt";
+                            Utils.WriteError(_outputFilePath, error);
+                            throw new Exception(error);
                         }
                         words[i] = word;
                     }
@@ -51,14 +55,23 @@
         // Writing results to the output file
         public void WriteOutputFile(List<int> results)
         {
-            using (StreamWriter writer = new StreamWriter(_outputFilePath))
+            try
             {
-                Console.WriteLine("Writing results to the output file...");
-                foreach (var result in results)
+                using (StreamWriter writer = new StreamWriter(_outputFilePath))
                 {
-                    writer.WriteLine(result);
+                    Console.WriteLine("Writing results to the output file...");
+                    foreach (var result in results)
+                    {
+                        writer.WriteLine(result);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                // Output error to console if writing fails
+                Console.WriteLine("Error writing output file: " + ex.Message);
+            }
+            
         }
     }
 }
