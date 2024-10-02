@@ -25,7 +25,7 @@ public static class FileService
 
                 for (int i = 0; i < m + 2; i++)
                 {
-                    line = reader.ReadLine();
+                    line = reader.ReadLine()!;
                     if (line == null)
                     {
                         break;

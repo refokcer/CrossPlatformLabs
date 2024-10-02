@@ -31,7 +31,7 @@ internal class Program
 
         // Read input numbers from the input file
         var fileService = new FileService(InputFilePath, OutputFilePath);
-        List<long> inputNumbers = fileService.ReadInputNumbers();
+        List<long> inputNumbers = fileService.ReadInputNumbers()!;
 
         // If reading failed, exit the program
         Console.WriteLine("Checking if the input holes exist");
