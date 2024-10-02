@@ -13,9 +13,9 @@ public static class PathFinder
 
         while (queue.Count > 0)
         {
-            var currentState = queue.Dequeue();
-            var currentSubstance = currentState.Substance;
-            var currentSteps = currentState.Steps;
+            var (Substance, Steps) = queue.Dequeue();
+            var currentSubstance = Substance;
+            var currentSteps = Steps;
 
             Console.WriteLine($"Current substance: {currentSubstance}, Steps taken: {currentSteps}");
 

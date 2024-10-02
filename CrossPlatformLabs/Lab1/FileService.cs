@@ -12,7 +12,7 @@ public class FileService
         this.OutputFilePath = OutputFilePath;
     }
 
-    public List<long> ReadInputNumbers()
+    public List<long>? ReadInputNumbers()
     {
         List<long> numbers = [];
 
@@ -25,7 +25,7 @@ public class FileService
 
                 // Read each line until the end of the file
 
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine()!) != null)
                 {
                     // Try to parse the line as a long integer
                     if (long.TryParse(line.Trim(), out long N))

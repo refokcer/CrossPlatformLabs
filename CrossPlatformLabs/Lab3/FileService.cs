@@ -11,7 +11,7 @@ public static class FileService
         using (StreamReader reader = new StreamReader(path))
         {
             string line;
-            while ((line = reader.ReadLine()) != null)
+            while ((line = reader.ReadLine()!) != null)
             {
                 var set = new List<string>();
 

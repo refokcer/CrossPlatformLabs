@@ -15,7 +15,7 @@ internal class Program
     private static string GetProjectDirectory()
     {
         string exePath = Assembly.GetExecutingAssembly().Location;
-        string exeDirectory = Path.GetDirectoryName(exePath);
+        string exeDirectory = Path.GetDirectoryName(exePath)!;
         string projectDirectory = Path.GetFullPath(Path.Combine(exeDirectory, @"..\..\.."));
         Console.WriteLine($"Project directory: {projectDirectory}");
         return projectDirectory;

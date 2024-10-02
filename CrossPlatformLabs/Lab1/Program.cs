@@ -18,7 +18,7 @@ internal class Program
     {
         //  Get the path to the executable file
         string exePath = Assembly.GetExecutingAssembly().Location;
-        string exeDirectory = Path.GetDirectoryName(exePath);
+        string exeDirectory = Path.GetDirectoryName(exePath)!;
 
         // Climb three levels up to get to the project catalog
         string projectDirectory = Path.GetFullPath(Path.Combine(exeDirectory, @"..\..\.."));
