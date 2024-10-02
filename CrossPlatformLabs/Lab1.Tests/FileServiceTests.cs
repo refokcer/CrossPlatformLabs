@@ -13,7 +13,7 @@ public class FileServiceTests
         FileService fileService = new FileService(tempInputFile, tempOutputFile);
 
         // Act
-        List<long> result = fileService.ReadInputNumbers();
+        List<long> result = fileService.ReadInputNumbers()!;
 
         // Assert
         Assert.Null(result); // Result should be null due to invalid input
