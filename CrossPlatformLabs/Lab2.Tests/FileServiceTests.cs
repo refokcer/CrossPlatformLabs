@@ -1,6 +1,4 @@
-﻿using Lab2;
-
-namespace Lab2.Tests;
+﻿namespace Lab2.Tests;
 
 public class FileServiceTests
 {
