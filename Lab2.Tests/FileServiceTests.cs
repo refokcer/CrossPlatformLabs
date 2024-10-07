@@ -37,7 +37,7 @@ public class FileServiceTests
         var fileService = new FileService(InputFilePath, OutputFilePath);
 
         // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => fileService.ReadInputFile());
+        Assert.Throws<ArgumentException>(() => fileService.ReadInputFile());
     }
 
     [Fact]
