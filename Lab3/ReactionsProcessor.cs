@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Lab3;
 
-namespace Lab3;
 public static class ReactionsProcessor
 {
     // Processes the input lines to extract reaction mappings and validates them
@@ -16,14 +14,14 @@ public static class ReactionsProcessor
             if (string.IsNullOrEmpty(line))
             {
                 Console.WriteLine($"Reaction {i} is empty.");
-                throw new Exception("Empty reaction found.");
+                throw new ArgumentException($"Reaction {i} is empty.", nameof(lines));
             }
 
             string[] reaction = line.Split(new string[] { " -> " }, StringSplitOptions.None);
             if (reaction.Length != 2 || !Utils.IsValidSubstanceName(reaction[0]) || !Utils.IsValidSubstanceName(reaction[1]))
             {
                 Console.WriteLine($"Invalid reaction format for reaction {i}.");
-                throw new Exception("Invalid reaction format.");
+                throw new FormatException($"Invalid reaction format at reaction {i}. Expected format: 'Substance1 -> Substance2'.");
             }
 
             if (reactions.ContainsKey(reaction[0]))

@@ -30,14 +30,14 @@ public class FileServiceTests
     }
 
     [Fact]
-    public void ReadInputFile_ShouldThrowException_OnInvalidMValue()
+    public void ReadInputFile_ShouldThrowArgumentOutOfRangeException_OnInvalidMValue()
     {
         // Arrange
         File.WriteAllText(InputFilePath, "300\na\nab\nabc\n");
         var fileService = new FileService(InputFilePath, OutputFilePath);
 
         // Act & Assert
-        Assert.Throws<Exception>(() => fileService.ReadInputFile());
+        Assert.Throws<ArgumentOutOfRangeException>(() => fileService.ReadInputFile());
     }
 
     [Fact]

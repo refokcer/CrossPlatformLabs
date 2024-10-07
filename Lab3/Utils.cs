@@ -1,15 +1,22 @@
-﻿using System;
-using System.Text.RegularExpressions;
-
-namespace Lab3;
+﻿using System.Text.RegularExpressions;
 
 public static class Utils
 {
     public static bool IsValidSubstanceName(string name)
     {
         Console.WriteLine($"Checking if {name} is a valid substance name.");
-        bool isValid = !string.IsNullOrEmpty(name) && name.Length <= 20 && Regex.IsMatch(name, @"^[a-zA-Z]+$");
-        Console.WriteLine($"Validation result for {name}: {isValid}");
-        return isValid;
+        try
+        {
+            bool isValid = !string.IsNullOrEmpty(name) &&
+                           name.Length <= 20 &&
+                           Regex.IsMatch(name, @"^[a-zA-Z]+$", RegexOptions.None, TimeSpan.FromMilliseconds(500));
+            Console.WriteLine($"Validation result for {name}: {isValid}");
+            return isValid;
+        }
+        catch (RegexMatchTimeoutException)
+        {
+            Console.WriteLine($"Regex match timeout for {name}");
+            return false;
+        }
     }
 }

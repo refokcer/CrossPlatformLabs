@@ -28,19 +28,20 @@ public class ReactionsProcessorTests
     }
 
     [Fact]
-    public void ProcessReactions_InvalidReactionFormat_ThrowsException()
+    public void ProcessReactions_InvalidReactionFormat_ThrowsFormatException()
     {
         // Arrange
         var lines = new List<string>
-    {
-        "2",
-        "A ->",
-        "B -> C",
-        "A",
-        "C"
-    };
+        {
+            "2",
+            "A ->",     
+            "B -> C",
+            "A",
+            "C"
+        };
 
         // Act & Assert
-        Assert.Throws<Exception>(() => ReactionsProcessor.ProcessReactions(lines, 2));
+        Assert.Throws<FormatException>(() => ReactionsProcessor.ProcessReactions(lines, 2));
     }
+
 }

@@ -10,7 +10,7 @@ public class MathServiceTests
         var words = new[] { "a", "ab", "abc", "abcd" };
 
         // Act
-        var result = mathService.CalculateMaxLength(words);
+        var result = MathService.CalculateMaxLength(words);
 
         // Assert
         Assert.Equal(4, result); // All words form a chain
@@ -24,7 +24,7 @@ public class MathServiceTests
         var words = new[] { "a", "ab", "bc", "bcd", "cde" };
 
         // Act
-        var result = mathService.CalculateMaxLength(words);
+        var result = MathService.CalculateMaxLength(words);
 
         // Assert
         Assert.Equal(2, result); // Two separate chains: ["a", "ab"], ["bc", "bcd"]
@@ -38,7 +38,7 @@ public class MathServiceTests
         var words = new[] { "a" };
 
         // Act
-        var result = mathService.CalculateMaxLength(words);
+        var result = MathService.CalculateMaxLength(words);
 
         // Assert
         Assert.Equal(1, result); // Single word has a length of 1
@@ -52,7 +52,7 @@ public class MathServiceTests
         var words = new[] { "cat", "dog", "fish" };
 
         // Act
-        var result = mathService.CalculateMaxLength(words);
+        var result = MathService.CalculateMaxLength(words);
 
         // Assert
         Assert.Equal(1, result); // No words can form a chain

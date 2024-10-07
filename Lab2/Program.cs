@@ -2,7 +2,7 @@
 
 namespace Lab2;
 
-internal class Program
+internal static class Program
 {
     // Defining project directory
     private static readonly string ProjectDirectory = GetProjectDirectory();
@@ -37,7 +37,7 @@ internal class Program
             foreach (var words in wordSets)
             {
                 Console.WriteLine("Calculating maximum chain length...");
-                int maxLength = mathService.CalculateMaxLength(words);
+                int maxLength = MathService.CalculateMaxLength(words);
                 results.Add(maxLength);
             }
 

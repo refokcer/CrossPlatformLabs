@@ -3,7 +3,7 @@
 public class MathService
 {
     // Calculate the maximum length of the word chain
-    public int CalculateMaxLength(string[] words)
+    public static int CalculateMaxLength(string[] words)
     {
         Console.WriteLine("Sorting words by length...");
         Array.Sort(words, (a, b) => a.Length.CompareTo(b.Length));

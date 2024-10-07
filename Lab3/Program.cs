@@ -2,7 +2,7 @@
 
 namespace Lab3;
 
-internal class Program
+internal static class Program
 {
     // Getting the path to the project directory
     private static readonly string ProjectDirectory = GetProjectDirectory();
