@@ -26,7 +26,6 @@ internal static class Program
             // Initializing file and math services
             Console.WriteLine("Initializing services...");
             var fileService = new FileService(InputFilePath, OutputFilePath);
-            var mathService = new MathService();
 
             // Reading input data from the file
             Console.WriteLine("Reading input data...");

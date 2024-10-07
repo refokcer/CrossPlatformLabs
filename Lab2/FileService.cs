@@ -27,7 +27,7 @@ public class FileService
                 {
                     var error = "Invalid value for M in INPUT.txt";
                     Utils.WriteError(_outputFilePath, error);
-                    throw new ArgumentOutOfRangeException(nameof(M), "Value for M must be between 1 and 255.");
+                    throw new ArgumentOutOfRangeException("Value for M must be between 1 and 255.");
                 }
 
                 string[] words = new string[M];

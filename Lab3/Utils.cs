@@ -1,5 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 
+namespace Lab3;
+
 public static class Utils
 {
     public static bool IsValidSubstanceName(string name)

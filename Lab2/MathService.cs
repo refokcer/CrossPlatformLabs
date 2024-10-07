@@ -1,6 +1,6 @@
 ﻿namespace Lab2;
 
-public class MathService
+public static class MathService
 {
     // Calculate the maximum length of the word chain
     public static int CalculateMaxLength(string[] words)
