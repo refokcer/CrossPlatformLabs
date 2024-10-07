@@ -6,7 +6,6 @@ public class MathServiceTests
     public void CalculateMaxLength_ShouldReturnCorrectLength_ForSingleChain()
     {
         // Arrange
-        var mathService = new MathService();
         var words = new[] { "a", "ab", "abc", "abcd" };
 
         // Act
@@ -20,7 +19,6 @@ public class MathServiceTests
     public void CalculateMaxLength_ShouldReturnCorrectLength_ForMultipleChains()
     {
         // Arrange
-        var mathService = new MathService();
         var words = new[] { "a", "ab", "bc", "bcd", "cde" };
 
         // Act
@@ -34,7 +32,6 @@ public class MathServiceTests
     public void CalculateMaxLength_ShouldHandleSingleWord()
     {
         // Arrange
-        var mathService = new MathService();
         var words = new[] { "a" };
 
         // Act
@@ -48,7 +45,6 @@ public class MathServiceTests
     public void CalculateMaxLength_ShouldReturn1_ForNonMatchingWords()
     {
         // Arrange
-        var mathService = new MathService();
         var words = new[] { "cat", "dog", "fish" };
 
         // Act
