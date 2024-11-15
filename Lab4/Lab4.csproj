@@ -7,7 +7,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
+  <PropertyGroup>
+	  <OutputType>Exe</OutputType>
+	  <PackAsTool>true</PackAsTool>
+	  <ToolCommandName>crossplatformlabs</ToolCommandName>
+	  <PackageId>AKarandashov</PackageId>
+	  <Version>1.0.1</Version>
+	  <Authors>Artem Karandashov</Authors>
+	  <Company>Enter Cross Group</Company>
+	  <PackageDescription>Console application for running labs</PackageDescription>
+  </PropertyGroup>
+
+	<ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.1" />
   </ItemGroup>
 

@@ -9,11 +9,10 @@ class Program
 {
     static int Main(string[] args)
     {
-        // Проверяем аргументы перед вызовом CommandLineApplication.Execute
         if (args.Length == 0 || !IsValidCommand(args[0]))
         {
             OnUnknownCommand();
-            return 1; // Завершаем с ненулевым кодом ошибки
+            return 1;
         }
 
         return CommandLineApplication.Execute<Program>(args);
