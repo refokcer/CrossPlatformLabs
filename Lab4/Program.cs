@@ -1,197 +1,119 @@
 ﻿using CrossPlatformLabs.LabRunner;
+using McMaster.Extensions.CommandLineUtils;
 
-namespace Lab4;
+namespace lab4;
 
+[Command(Name = "Lab4", Description = "Console app for labs")]
+[Subcommand(typeof(VersionCommand), typeof(RunCommand), typeof(SetPathCommand))]
 class Program
 {
-    static void Main(string[] args)
+    static int Main(string[] args)
     {
-        if (args.Length == 0)
+        // Проверяем аргументы перед вызовом CommandLineApplication.Execute
+        if (args.Length == 0 || !IsValidCommand(args[0]))
         {
-            ShowHelp();
-            return;
+            OnUnknownCommand();
+            return 1; // Завершаем с ненулевым кодом ошибки
         }
 
-        switch (args[0].ToLower())
-        {
-            case "version":
-                ShowVersion();
-                break;
-            case "run":
-                RunLab(args);
-                break;
-            case "set-path":
-                SetPath(args);
-                break;
-            default:
-                Console.WriteLine("Unknown command.");
-                ShowHelp();
-                break;
-        }
+        return CommandLineApplication.Execute<Program>(args);
     }
 
-    static void ShowVersion()
+    private void OnExecute()
+    {
+        Console.WriteLine("Specify a command");
+    }
+
+    private static void OnUnknownCommand()
+    {
+        Console.WriteLine("Unknown command. Use one of the following:");
+        Console.WriteLine(" - version: Displays app version and author");
+        Console.WriteLine(" - run: Run a specific lab");
+        Console.WriteLine(" - set-path: Set input/output path");
+    }
+
+    private static bool IsValidCommand(string command)
+    {
+        // Список допустимых команд
+        var validCommands = new[] { "version", "run", "set-path", "--help", "-h" };
+        return validCommands.Contains(command.ToLower());
+    }
+}
+
+[Command(Name = "version", Description = "Displays app version and author")]
+class VersionCommand
+{
+    private void OnExecute()
     {
         Console.WriteLine("Author: Artem Karandashov");
         Console.WriteLine("Version: 1.0.1");
     }
+}
 
-    static void RunLab(string[] args)
+[Command(Name = "run", Description = "Run a specific lab")]
+class RunCommand
+{
+    [Argument(0, "lab", "Specify lab to run (lab1)")]
+    public string? Lab { get; set; }
+
+    [Option("-I|--input", "Input file", CommandOptionType.SingleValue)]
+    public string? InputFile { get; set; }
+
+    [Option("-o|--output", "Output file", CommandOptionType.SingleValue)]
+    public string? OutputFile { get; set; }
+
+
+    private void OnExecute()
     {
-        if (args.Length < 2)
+        string? labPath = Directory.GetCurrentDirectory();
+        if (labPath == null)
         {
-            Console.WriteLine("Please specify a lab to run (lab1, lab2, lab3).");
+            Console.WriteLine($"Unknown lab '{Lab}'. Available labs: lab1.");
             return;
         }
 
-        string labName = args[1];
-        string inputFile = null!;
-        string outputFile = null!;
+        // Перевірка пріоритетності шляху
+        Console.WriteLine(Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User));
+        string inputFilePath = InputFile ?? Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User) ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "INPUT.txt");
+        string outputFilePath = OutputFile ?? Path.Combine(labPath, "OUTPUT.txt");
 
-        // Разбор дополнительных параметров
-        for (int i = 2; i < args.Length; i++)
+        if (!File.Exists(inputFilePath))
         {
-            if (args[i] == "-I" || args[i] == "--input")
-            {
-                if (i + 1 < args.Length)
-                {
-                    inputFile = args[i + 1];
-                    i++;
-                }
-                else
-                {
-                    Console.WriteLine("Please specify an input file.");
-                    return;
-                }
-            }
-            else if (args[i] == "-o" || args[i] == "--output")
-            {
-                if (i + 1 < args.Length)
-                {
-                    outputFile = args[i + 1];
-                    i++;
-                }
-                else
-                {
-                    Console.WriteLine("Please specify an output file.");
-                    return;
-                }
-            }
-            else
-            {
-                Console.WriteLine($"Unknown parameter: {args[i]}");
-                return;
-            }
-        }
-
-        // Определение путей к входному и выходному файлам
-        inputFile = GetInputFilePath(inputFile);
-        outputFile = GetOutputFilePath(outputFile);
-
-        if (inputFile == null)
-        {
-            Console.WriteLine("Input file not specified and could not be found.");
+            Console.WriteLine($"Input file '{inputFilePath}' not found.");
             return;
         }
 
-        var labRunner = new LabRunner();
-        try
+        var runner = new LabRunner();
+
+        switch (Lab.ToLower())
         {
-            labRunner.RunLab(labName, inputFile, outputFile);
-            Console.WriteLine($"{labName} completed successfully.");
+            case "lab1":
+                runner.RunLab("lab1", inputFilePath, outputFilePath);
+                break;
+            case "lab2":
+                runner.RunLab("lab2", inputFilePath, outputFilePath);
+                break;
+            case "lab3":
+                runner.RunLab("lab3", inputFilePath, outputFilePath);
+                break;
+            default:
+                Console.WriteLine("Unknown lab specified.");
+                break;
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error running {labName}: {ex.Message}");
-        }
+
+        Console.WriteLine($"Lab {Lab} processed. Output saved to {outputFilePath}");
     }
+}
 
-    static void SetPath(string[] args)
+[Command(Name = "set-path", Description = "Set input/output path")]
+class SetPathCommand
+{
+    [Option("-p|--path", "Path to input/output files", CommandOptionType.SingleValue)]
+    public required string Path { get; set; }
+
+    private void OnExecute()
     {
-        string path = null!;
-
-        for (int i = 1; i < args.Length; i++)
-        {
-            if (args[i] == "-p" || args[i] == "--path")
-            {
-                if (i + 1 < args.Length)
-                {
-                    path = args[i + 1];
-                    i++;
-                }
-                else
-                {
-                    Console.WriteLine("Please specify a path.");
-                    return;
-                }
-            }
-            else
-            {
-                Console.WriteLine($"Unknown parameter: {args[i]}");
-                return;
-            }
-        }
-
-        if (path == null)
-        {
-            Console.WriteLine("Please specify a path using -p or --path.");
-            return;
-        }
-
-        Environment.SetEnvironmentVariable("LAB_PATH", path);
-        Console.WriteLine($"LAB_PATH set to {path}");
-    }
-
-    static string GetInputFilePath(string inputFile)
-    {
-        // Приоритетность пути
-        if (inputFile != null && System.IO.File.Exists(inputFile))
-        {
-            return inputFile;
-        }
-
-        string labPath = Environment.GetEnvironmentVariable("LAB_PATH")!;
-        if (!string.IsNullOrEmpty(labPath))
-        {
-            string filePath = System.IO.Path.Combine(labPath, "input.txt");
-            if (System.IO.File.Exists(filePath))
-            {
-                return filePath;
-            }
-        }
-
-        string homePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        string homeInputFile = System.IO.Path.Combine(homePath, "input.txt");
-        if (System.IO.File.Exists(homeInputFile))
-        {
-            return homeInputFile;
-        }
-
-        return null!;
-    }
-
-    static string GetOutputFilePath(string outputFile)
-    {
-        if (outputFile != null)
-        {
-            return outputFile;
-        }
-
-        string labPath = Environment.GetEnvironmentVariable("LAB_PATH")!;
-        if (!string.IsNullOrEmpty(labPath))
-        {
-            return System.IO.Path.Combine(labPath, "output.txt");
-        }
-
-        string homePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        return System.IO.Path.Combine(homePath, "output.txt");
-    }
-
-    static void ShowHelp()
-    {
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  version");
-        Console.WriteLine("  run <lab1|lab2|lab3> [-I|--input <inputFile>] [-o|--output <outputFile>]");
-        Console.WriteLine("  set-path -p|--path <path>");
+        Environment.SetEnvironmentVariable("LAB_PATH", Path, EnvironmentVariableTarget.User);
+        Console.WriteLine($"Path set to: {Path}");
     }
 }
