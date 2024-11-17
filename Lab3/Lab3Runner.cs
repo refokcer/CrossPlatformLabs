@@ -8,42 +8,13 @@ public class Lab3Runner
         {
             Console.WriteLine("Program started.");
 
-            // Read multiple sets from the input file
+            // Считываем входные данные
             var multipleSets = FileService.ReadMultipleSets(InputFilePath);
-            var results = new List<int>();
 
-            // Process each set of reactions and find the shortest path
-            foreach (var set in multipleSets)
-            {
-                // Get the number of reactions from the first line
-                if (!int.TryParse(set[0], out int numberOfReactions) || numberOfReactions < 0 || numberOfReactions > 1000)
-                {
-                    Console.WriteLine("Invalid number of reactions.");
-                    results.Add(-1);
-                    continue;
-                }
+            // Передаём данные на обработку в отдельный метод
+            var results = ProcessInput(multipleSets);
 
-                // Process the reactions using the ReactionsProcessor class
-                var reactions = ReactionsProcessor.ProcessReactions(set, numberOfReactions);
-
-                // Read the starting and target substances from the input
-                string startSubstance = set[numberOfReactions + 1];
-                string desiredSubstance = set[numberOfReactions + 2];
-
-                // Validate the substance names
-                if (!Utils.IsValidSubstanceName(startSubstance) || !Utils.IsValidSubstanceName(desiredSubstance))
-                {
-                    Console.WriteLine("Invalid substance name.");
-                    results.Add(-1);
-                    continue;
-                }
-
-                // Use the PathFinder class to find the shortest path
-                int result = PathFinder.TransformSubstanceDijkstra(reactions, startSubstance, desiredSubstance);
-                results.Add(result);
-            }
-
-            // Write results for all sets to a single output file
+            // Записываем результаты в выходной файл
             FileService.WriteAllResults(OutputFilePath, results);
 
             Console.WriteLine("Program finished.");
@@ -52,5 +23,76 @@ public class Lab3Runner
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
+    }
+
+    public List<int> ProcessInput(List<List<string>> multipleSets)
+    {
+        var results = new List<int>();
+
+        foreach (var set in multipleSets)
+        {
+            // Проверяем корректность количества реакций
+            if (!int.TryParse(set[0], out int numberOfReactions) || numberOfReactions < 0 || numberOfReactions > 1000)
+            {
+                Console.WriteLine("Invalid number of reactions.");
+                results.Add(-1);
+                continue;
+            }
+
+            // Обрабатываем реакции
+            var reactions = ReactionsProcessor.ProcessReactions(set, numberOfReactions);
+
+            // Чтение начального и целевого вещества
+            string startSubstance = set[numberOfReactions + 1];
+            string desiredSubstance = set[numberOfReactions + 2];
+
+            // Валидация названий веществ
+            if (!Utils.IsValidSubstanceName(startSubstance) || !Utils.IsValidSubstanceName(desiredSubstance))
+            {
+                Console.WriteLine("Invalid substance name.");
+                results.Add(-1);
+                continue;
+            }
+
+            // Находим кратчайший путь
+            int result = PathFinder.TransformSubstanceDijkstra(reactions, startSubstance, desiredSubstance);
+            results.Add(result);
+        }
+
+        return results;
+    }
+
+    public List<List<string>> ConvertToNestedStringList(List<string> input)
+    {
+        var result = new List<List<string>>();
+        int i = 0;
+
+        while (i < input.Count)
+        {
+            // Попробуем извлечь количество реакций из первой строки набора
+            if (int.TryParse(input[i], out int numberOfReactions) && numberOfReactions >= 0)
+            {
+                // Проверяем, достаточно ли строк для текущего набора
+                if (i + numberOfReactions + 2 >= input.Count)
+                {
+                    Console.WriteLine($"Warning: Not enough data for the set starting at line {i + 1}. Skipping.");
+                    break;
+                }
+
+                // Извлекаем текущий набор данных
+                var set = input.Skip(i).Take(numberOfReactions + 3).ToList();
+                result.Add(set);
+
+                // Переходим к следующему набору
+                i += numberOfReactions + 3;
+            }
+            else
+            {
+                Console.WriteLine($"Warning: Invalid reaction count at line {i + 1}: '{input[i]}'. Skipping.");
+                i++;
+            }
+        }
+
+        return result;
     }
 }

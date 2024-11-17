@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-namespace Lab1;
+﻿namespace Lab1;
 
 public class Lab1Runner
 {
@@ -21,9 +18,19 @@ public class Lab1Runner
             return;
         }
 
+        // Process input numbers and get results
+        Console.WriteLine("Processing input data");
+        List<string> results = ProcessInput(inputNumbers);
+
+        // Write all results to the output file
+        Console.WriteLine("Write everything to a file for output");
+        fileService.WriteOutputResults(results);
+    }
+
+    public List<string> ProcessInput(List<long> inputNumbers)
+    {
         // List to store results for each input number
         List<string> results = new List<string>();
-
 
         // Process each input number
         Console.WriteLine("Go through all input data one by one");
@@ -35,7 +42,7 @@ public class Lab1Runner
             Console.WriteLine($"Check the range of the {i + 1} number");
             if (N < 1 || N > 109)
             {
-                Console.WriteLine($"Invalid value of {i + 1} number. It should be in the range frpm 1 to 109");
+                Console.WriteLine($"Invalid value of {i + 1} number. It should be in the range from 1 to 109");
                 results.Add($"Invalid value of {i + 1} number. It should be in the range 1 ≤ N ≤ 109.");
                 continue;
             }
@@ -49,8 +56,26 @@ public class Lab1Runner
             results.Add(count.ToString());
         }
 
-        // Write all results to the output file
-        Console.WriteLine("Write everything to a file for output ");
-        fileService.WriteOutputResults(results);
+        return results;
+    }
+
+
+    public List<long> ConvertToLongList(List<string> inputStrings)
+    {
+        var result = new List<long>();
+
+        foreach (var str in inputStrings)
+        {
+            if (long.TryParse(str, out long number))
+            {
+                result.Add(number);
+            }
+            else
+            {
+                Console.WriteLine($"Warning: '{str}' is not a valid number and will be skipped.");
+            }
+        }
+        return result;
     }
 }
+
