@@ -1,0 +1,27 @@
+﻿@model IOModel
+
+@{
+    ViewBag.Title = "Lab1";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>
+    Задано натуральне число N. Потрібно написати програму, яка знаходить кількість натуральних чисел, 
+    що не перевищують N і не поділяються на жодне з чисел 2, 3, 5. Вхідні дані Вхідний файл INPUT.TXT 
+    містить число N (1 ≤ N ≤ 109). Вихідні дані. У вихідний файл OUTPUT.TXT виведіть відповідь на завдання.
+</p>
+
+<form method="post">
+    <div class="form-group mt-3">
+        <label for="Input">Вхідні дані</label>
+        <textarea id="Input" name="Input" rows="10" class="form-control">@Model.Input</textarea>
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="Output">Вихідні дані</label>
+        <textarea id="Output" name="Output" rows="10" class="form-control" disabled>@Model.Output</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Обробити</button>
+</form>
