@@ -1,0 +1,26 @@
+﻿@page
+@model SearchModel
+<h1>Поиск заказов</h1>
+<form method="get">
+    <label>Дата: <input type="date" asp-for="Date"></label>
+    <label>Начинается с: <input type="text" asp-for="StartsWith"></label>
+    <label>Заканчивается на: <input type="text" asp-for="EndsWith"></label>
+    <button type="submit">Искать</button>
+</form>
+
+<h2>Результаты</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Клиент</th>
+        <th>Сумма</th>
+    </tr>
+    @foreach (var order in Model.Orders)
+    {
+        <tr>
+            <td>@order.OrderId</td>
+            <td>@order.Customer.OrganisationName</td>
+            <td>@order.OrderAmountDue</td>
+        </tr>
+    }
+</table>

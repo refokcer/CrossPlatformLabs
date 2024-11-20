@@ -24,6 +24,13 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
+builder.Services.AddHttpClient("Lab6API", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5289"); 
+});
+
+builder.Services.AddScoped<OrderService>();
+
 Config.Load(builder.Configuration);
 
 var app = builder.Build();

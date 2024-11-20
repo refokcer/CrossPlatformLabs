@@ -1,0 +1,19 @@
+﻿@page
+@model OrdersModel
+<h1>Список заказов</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Дата</th>
+        <th>Сумма</th>
+        <th>Действия</th>
+    </tr>
+    @foreach (var order in Model.Orders)
+    {
+        <tr>
+            <td>@order.OrderId</td>
+            <td>@order.OrderAmountDue</td>
+            <td><a asp-page="./Details" asp-route-id="@order.OrderId">Подробнее</a></td>
+        </tr>
+    }
+</table>
