@@ -2,7 +2,7 @@
 
 public class Supplier
 {
-    public int SupplierNr { get; set; }
+    public int SupplierId { get; set; }
     public string? SupplierName { get; set; }
     public string? StreetAddress { get; set; }
     public string? Town { get; set; }

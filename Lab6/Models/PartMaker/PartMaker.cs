@@ -2,6 +2,7 @@
 
 public class PartMaker
 {
+    public int PartMakerId { get; set; }
     public string? PartMakerCode { get; set; }
     public string? PartMakerName { get; set; }
 
